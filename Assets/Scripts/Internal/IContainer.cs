@@ -3,9 +3,9 @@ namespace ComponentContainer.Internal
 {
     public interface IContainer
     {
-        void Register(Type type, object obj);
+        void RegisterInstance(Type type, object obj);
         
-        void Register<T>(T obj);
+        void RegisterInstance<T>(T obj);
 
         object Resolve<T>();
         

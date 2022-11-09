@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using ComponentContainer.Internal;
@@ -22,14 +21,10 @@ namespace ComponentContainer.Container
         [SerializeField]
         private List<GameObject> _targetGameObjects = new();
 
-        private readonly Injector _injector = new();
-
-        private readonly ConcurrentDictionary<Type, object> _containerData = new();
-
         private void Awake()
         {
             // Register Self
-            Register(this as IContainer);
+            RegisterInstance(this as IContainer);
             
             // シーンが対象の場合はシーンを検索
             if (_searchMethod == GameObjectSearchMethod.Scene) {
@@ -44,41 +39,6 @@ namespace ComponentContainer.Container
                 }
             }
         }
-
-        public override object Resolve<T>()
-        {
-            return Resolve(typeof(T));
-        }
-        
-        public override object Resolve(Type type)
-        {
-            return _containerData.ContainsKey(type) ? _containerData[type] : null;
-        }
-
-        public override void Register(Type type, object obj)
-        {
-            _containerData.TryAdd(type, obj);
-        }
-        
-        public override void Register<T>(T obj)
-        {
-            _containerData.TryAdd(typeof(T), obj);
-
-            List<T> list = _containerData.ContainsKey(typeof(List<T>)) 
-                ? _containerData[typeof(List<T>)] as List<T> 
-                : new List<T>();
-
-            list?.Add(obj);
-            _containerData[typeof(List<T>)] = list;
-            _containerData[typeof(T[])] = list?.ToArray();
-            _containerData[typeof(IEnumerable<T>)] = list;
-        }
-        
-        public override void Inject(object instance)
-        {
-            var targetMethods = TargetSearcher.Search(instance.GetType());
-            _injector.Inject(instance, this, targetMethods);
-        }
     }
-
+    
 }
