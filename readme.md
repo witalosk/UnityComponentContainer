@@ -1,10 +1,11 @@
 # UnityComponentContainer
 
-This is a super simple DiContainer that runs in Unity and relies heavily on Unity.  
+This is a simple DiContainer that relies on Unity.  
 It is being developed little by little and **has not yet reached a practical level at all.**  
 It is intended for use in projects that are completed in a single scene, such as installations, rather than games.
+
 ---
-Unityで動作する超シンプルなUnityにがっつり依存したDiContainerです。  
+Unityにがっつり依存した超シンプルなDiContainerです。  
 ちょっとずつ開発中で、**まだ実用できるレベルには全く達してません。**  
 ゲームというよりかはどちらかというとインスタレーション作品など1シーンで完結するプロジェクトでの利用を想定しています。
 
@@ -14,6 +15,7 @@ Unityで動作する超シンプルなUnityにがっつり依存したDiContaine
 - OptionalInjection is the default (if a type not registered in the container is requested, the default value is entered)
 - Method Injection
 - Dependency injection into dynamically generated GameObjects. (IContainer.Instantiate())
+
 ---
 - Scene内で動作するContainer
 - ComponentをInterfaceなどとして登録、解決できる
@@ -28,6 +30,7 @@ Unityで動作する超シンプルなUnityにがっつり依存したDiContaine
 - Execution functions such as IInitialize
 - Constructor Injection, Field Injection, Property Injection  
 etc.
+
 ---
 - Componentではない一般的な型の登録
 - Factoryの登録
@@ -43,6 +46,7 @@ Unity 2021.3.1f1
 1. Create a `SceneContainer` in the scene.
 2. Attach `GameObjectRegistrator` or `ComponentsRegistrator` to the component you want to register in the Container.
 3. Write a method with `[Inject]` attribute in the code of the injector.
+
 ---
 1. `SceneContainer` をシーンに作成
 2. Containerに登録したいComponentに `GameObjectRegistrator` か `ComponentsRegistrator` をアタッチして設定
