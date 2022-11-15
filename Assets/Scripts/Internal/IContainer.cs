@@ -7,9 +7,9 @@ namespace ComponentContainer.Internal
         
         void RegisterInstance<T>(T obj);
 
-        object Resolve<T>();
+        object Resolve<T>(bool notNull = false);
         
-        object Resolve(Type type);
+        object Resolve(Type type, bool nullable = false);
 
         void Inject(object instance);
     }

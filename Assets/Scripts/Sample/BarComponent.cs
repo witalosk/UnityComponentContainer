@@ -20,7 +20,7 @@ namespace ComponentContainer.Sample
         private IContainer _container;
         
         [Inject]
-        public void Construct(IFooComponent fooComponent, IEnumerable<IFooComponent> fooComponents, IContainer container)
+        public void Construct([Nullable] IFooComponent fooComponent, IEnumerable<IFooComponent> fooComponents, IContainer container)
         {
             _fooComponent = fooComponent;
             _fooComponents = fooComponents;
@@ -29,7 +29,11 @@ namespace ComponentContainer.Sample
 
         private void Start()
         {
-            Debug.Log(_fooComponent.Test());
+            if (_fooComponent != null)
+            {
+                Debug.Log(_fooComponent.Test());
+            }
+            
             Debug.Log($"fooComponentsNum: {_fooComponents.Count()}");
         }
 
