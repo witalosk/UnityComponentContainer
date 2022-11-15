@@ -14,12 +14,12 @@ namespace ComponentContainer.Container
 
         private readonly ConcurrentDictionary<Type, List<IInstanceProvider>> _containerData = new();
 
-        public object Resolve<T>()
+        public object Resolve<T>(bool notNull = false)
         {
             return Resolve(typeof(T));
         }
         
-        public object Resolve(Type type)
+        public object Resolve(Type type, bool notNull = false)
         {
             if (type.IsConstructedGenericType 
                 && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
@@ -40,6 +40,11 @@ namespace ComponentContainer.Container
             if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
             {
                 return _containerData[type][0].GetInstance();
+            }
+
+            if (notNull)
+            {
+                throw new ArgumentNullException($"\"{type}\" was requested, but the corresponding type is not registered in the container.");
             }
 
             return GetDefault(type);

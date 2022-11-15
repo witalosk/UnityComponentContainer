@@ -15,7 +15,8 @@ namespace ComponentContainer.Internal
       
                 for (int i = 0; i < parameters.Length; i++) {
                     var targetParameter = parameters[i];
-                    values[i] = container.Resolve(targetParameter.ParameterType);
+                    values[i] = container.Resolve(targetParameter.ParameterType, 
+                        targetParameter.IsDefined(typeof(NotNullAttribute), true));
                 }
 
                 methodInfo.MethodInfo.Invoke(instance, values);

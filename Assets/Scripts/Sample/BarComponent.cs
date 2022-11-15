@@ -20,7 +20,7 @@ namespace ComponentContainer.Sample
         private IContainer _container;
         
         [Inject]
-        public void Construct(IFooComponent fooComponent, IEnumerable<IFooComponent> fooComponents, IContainer container)
+        public void Construct([NotNull] IFooComponent fooComponent, IEnumerable<IFooComponent> fooComponents, IContainer container)
         {
             _fooComponent = fooComponent;
             _fooComponents = fooComponents;

@@ -2,7 +2,7 @@
 {
     public class ExistingInstanceProvider : IInstanceProvider
     {
-        private object _instance;
+        private readonly object _instance;
         
         public ExistingInstanceProvider(object instance)
         {

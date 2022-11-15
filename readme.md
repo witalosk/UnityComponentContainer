@@ -62,12 +62,14 @@ Unity 2021.3.1f1
         private bool _isInstantiated = false;
         
         private IFooComponent _fooComponent;
+        private IEnumerable<IParams> _paramsObjects;
         private IContainer _container;
         
         [Inject]
-        public void Construct(IFooComponent fooComponent, IContainer container)
+        public void Construct([NotNull] IFooComponent fooComponent, IEnumerable<IParams> paramsObjects, IContainer container)
         {
             _fooComponent = fooComponent;
+            _paramsObjects = paramsObjects;
             _container = container;
         }
 
@@ -87,6 +89,10 @@ Unity 2021.3.1f1
         }
     }
 ```
+If the `[NotNull]` attribute is given to the parameter, an exception will be thrown if the target type is not registered in the container.
+
+---
+`[NotNull]`属性を記入すると、対象の型がコンテナに登録されていなかった場合に例外がthrowされます。
 
 
 ## Contributing

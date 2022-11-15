@@ -26,15 +26,14 @@ namespace ComponentContainer.Container
             // Register Self
             RegisterInstance(this as IContainer);
             
-            // シーンが対象の場合はシーンを検索
             if (_searchMethod == GameObjectSearchMethod.Scene) {
                 _targetGameObjects = Resources.FindObjectsOfTypeAll(typeof(GameObject))
                     .Select(c => c as GameObject)
                     .Where(c => c != null && c.hideFlags != HideFlags.NotEditable && c.hideFlags != HideFlags.HideAndDontSave).ToList();
             }
 
-            foreach (var gameObject in _targetGameObjects) {
-                foreach (var component in gameObject.GetComponents<Component>()) {
+            foreach (var go in _targetGameObjects) {
+                foreach (var component in go.GetComponents<Component>()) {
                     Inject(component);
                 }
             }
