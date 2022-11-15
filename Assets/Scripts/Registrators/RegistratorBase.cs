@@ -28,11 +28,7 @@ namespace ComponentContainer.Registrator
             }
 
             foreach (var type in targetTypes) {
-                Debug.Log(type);
-            }
-
-            foreach (var type in targetTypes) {
-                _targetContainer.Register(type, component);
+                _targetContainer.RegisterInstance(type, component);
             }
         }
         

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ComponentContainer.Internal
+namespace ComponentContainer
 {
     public class PreserveAttribute : Attribute { }
 
