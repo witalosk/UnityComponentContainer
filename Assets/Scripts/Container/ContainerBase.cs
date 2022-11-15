@@ -19,15 +19,18 @@ namespace ComponentContainer.Container
             return Resolve(typeof(T));
         }
         
-        public object Resolve(Type type, bool notNull = false)
+        public object Resolve(Type type, bool nullable = false)
         {
             if (type.IsConstructedGenericType 
-                && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
-                && _containerData.ContainsKey(type.GenericTypeArguments[0])
-                && _containerData[type.GenericTypeArguments[0]].Count > 0)
+                && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
             {
                 // if IEnumerable<T> is requested
-                int instanceCount = _containerData[type.GenericTypeArguments[0]].Count;
+                int instanceCount = 0;
+                if (_containerData.ContainsKey(type.GenericTypeArguments[0]) && _containerData[type.GenericTypeArguments[0]].Count > 0)
+                {
+                    instanceCount = _containerData[type.GenericTypeArguments[0]].Count;
+                }
+       
                 var array = Array.CreateInstance(type.GenericTypeArguments[0], instanceCount);
                 for (int i = 0; i < instanceCount; i++)
                 {
@@ -42,7 +45,7 @@ namespace ComponentContainer.Container
                 return _containerData[type][0].GetInstance();
             }
 
-            if (notNull)
+            if (!nullable)
             {
                 throw new ArgumentNullException($"\"{type}\" was requested, but the corresponding type is not registered in the container.");
             }

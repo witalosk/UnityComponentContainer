@@ -9,7 +9,7 @@ namespace ComponentContainer.Internal
 
         object Resolve<T>(bool notNull = false);
         
-        object Resolve(Type type, bool notNull = false);
+        object Resolve(Type type, bool nullable = false);
 
         void Inject(object instance);
     }

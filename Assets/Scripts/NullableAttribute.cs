@@ -9,5 +9,5 @@ namespace ComponentContainer
         JetBrains.Annotations.ImplicitUseKindFlags.InstantiatedNoFixedConstructorSignature)]
 #endif
     [AttributeUsage(AttributeTargets.Parameter)]
-    public class NotNullAttribute : PreserveAttribute { }
+    public class NullableAttribute : PreserveAttribute { }
 }

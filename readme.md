@@ -12,14 +12,14 @@ Unityにがっつり依存した超シンプルなDiContainerです。
 ### Implemented Features / ある機能
 - Container that operates within a Scene
 - Component can be registered and resolved as Interface, etc.
-- OptionalInjection is the default (if a type not registered in the container is requested, the default value is entered)
+- OptionalInjection (Default value is entered if there is no target instance in the container by adding the `[Nullable]` attribute.)
 - Method Injection
 - Dependency injection into dynamically generated GameObjects. (IContainer.Instantiate())
 
 ---
 - Scene内で動作するContainer
 - ComponentをInterfaceなどとして登録、解決できる
-- OptionalInjectionがデフォルト(コンテナに登録されていない型が要求された場合はデフォルト値が入る)
+- OptionalInjection (`[Nullable]`属性を付与することでコンテナに対象のインスタンスがない場合はデフォルト値が入る)
 - メソッドインジェクション
 - 動的生成されたGameObjectへの依存性注入 (IContainer.Instantiate())
 
@@ -66,7 +66,7 @@ Unity 2021.3.1f1
         private IContainer _container;
         
         [Inject]
-        public void Construct([NotNull] IFooComponent fooComponent, IEnumerable<IParams> paramsObjects, IContainer container)
+        public void Construct([Nullable] IFooComponent fooComponent, IEnumerable<IParams> paramsObjects, IContainer container)
         {
             _fooComponent = fooComponent;
             _paramsObjects = paramsObjects;
@@ -75,7 +75,10 @@ Unity 2021.3.1f1
 
         private void Start()
         {
-            Debug.Log(_fooComponent.Test());
+            if (_fooComponent != null)
+            {
+                Debug.Log(_fooComponent.Test());
+            }
         }
 
         private void Update()
@@ -89,10 +92,10 @@ Unity 2021.3.1f1
         }
     }
 ```
-If the `[NotNull]` attribute is given to the parameter, an exception will be thrown if the target type is not registered in the container.
+If the `[Nullable]` attribute is given to the parameter, an exception will not be thrown if the target type is not registered in the container.
 
 ---
-`[NotNull]`属性を記入すると、対象の型がコンテナに登録されていなかった場合に例外がthrowされます。
+`[NotNull]`属性を記入すると、対象の型がコンテナに登録されていなかった場合に例外がthrowされなくなります。
 
 
 ## Contributing
