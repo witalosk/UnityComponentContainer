@@ -22,31 +22,24 @@ namespace ComponentContainer.Container
         public object Resolve(Type type)
         {
             if (type.IsConstructedGenericType 
-                && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
+                && type.GetGenericTypeDefinition() == typeof(IEnumerable<>)
+                && _containerData.ContainsKey(type.GenericTypeArguments[0])
+                && _containerData[type.GenericTypeArguments[0]].Count > 0)
             {
                 // if IEnumerable<T> is requested
-                if (_containerData.ContainsKey(type.GenericTypeArguments[0]) && _containerData[type.GenericTypeArguments[0]].Count > 0)
+                int instanceCount = _containerData[type.GenericTypeArguments[0]].Count;
+                var array = Array.CreateInstance(type.GenericTypeArguments[0], instanceCount);
+                for (int i = 0; i < instanceCount; i++)
                 {
-                    int instanceCount = _containerData[type.GenericTypeArguments[0]].Count;
-                    var array = Array.CreateInstance(type.GenericTypeArguments[0], instanceCount);
-                    for (int i = 0; i < instanceCount; i++)
-                    {
-                        array.SetValue(_containerData[type.GenericTypeArguments[0]][i].GetInstance(), i);
-                    }
-                    return array;
+                    array.SetValue(_containerData[type.GenericTypeArguments[0]][i].GetInstance(), i);
                 }
-                if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
-                {
-                    return _containerData[type][0].GetInstance();
-                }
+                return array;
             }
-            else
+            
+            // for not enumerable type
+            if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
             {
-                // for not enumerable type
-                if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
-                {
-                    return _containerData[type][0].GetInstance();
-                }
+                return _containerData[type][0].GetInstance();
             }
 
             return GetDefault(type);
