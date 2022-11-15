@@ -20,28 +20,28 @@ namespace ComponentContainer.Container
         
         public object Resolve(Type type)
         {
-            Debug.Log($"{type} is requested!");
-            if (type.IsConstructedGenericType) {
-                Debug.Log($"IsConstructedGenericType: {type.IsConstructedGenericType}, GetGenericTypeDefinition: {type.GetGenericTypeDefinition()},  GenericTypeArguments[0]: {type.GenericTypeArguments[0]}");
-            }
-
             if (type.IsConstructedGenericType 
-                && (type.GetGenericTypeDefinition() == typeof(List<>) || type.GetGenericTypeDefinition() == typeof(IEnumerable<>)))
+                && type.GetGenericTypeDefinition() == typeof(IEnumerable<>))
             {
-                // if List<T> or IEnummerable<T> is requested
+                // if IEnumerable<T> is requested
                 if (_containerData.ContainsKey(type.GenericTypeArguments[0]) && _containerData[type.GenericTypeArguments[0]].Count > 0)
                 {
-                    // Todo: List<object> を List<T>に詰め込む
-                    return Convert.ChangeType(_containerData[type.GenericTypeArguments[0]], type);
+                    int instanceCount = _containerData[type.GenericTypeArguments[0]].Count;
+                    var array = Array.CreateInstance(type.GenericTypeArguments[0], instanceCount);
+                    for (int i = 0; i < instanceCount; i++)
+                    {
+                        array.SetValue(_containerData[type.GenericTypeArguments[0]][i], i);
+                    }
+                    return array;
                 }
-                else if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
+                if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
                 {
                     return _containerData[type][0];
                 }
             }
             else
             {
-                // for not enummerable type
+                // for not enumerable type
                 if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
                 {
                     return _containerData[type][0];

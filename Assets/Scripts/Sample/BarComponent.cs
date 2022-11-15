@@ -16,11 +16,11 @@ namespace ComponentContainer.Sample
         private bool _isInstantiated = false;
         private IFooComponent _fooComponent;
 
-        private List<IFooComponent> _fooComponents;
+        private IEnumerable<IFooComponent> _fooComponents;
         private IContainer _container;
         
         [Inject]
-        public void Construct(IFooComponent fooComponent, List<IFooComponent> fooComponents, IContainer container)
+        public void Construct(IFooComponent fooComponent, IEnumerable<IFooComponent> fooComponents, IContainer container)
         {
             _fooComponent = fooComponent;
             _fooComponents = fooComponents;
@@ -30,7 +30,7 @@ namespace ComponentContainer.Sample
         private void Start()
         {
             Debug.Log(_fooComponent.Test());
-            Debug.Log($"fooComponentsNum: {_fooComponents.Count}");
+            Debug.Log($"fooComponentsNum: {_fooComponents.Count()}");
         }
 
         private void Update()
