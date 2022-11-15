@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ComponentContainer.Container
 {
     [DefaultExecutionOrder(-999)]
-    public class SceneContainer : ContainerBase, IContainer
+    public class SceneContainer : ContainerBase
     {
         private enum GameObjectSearchMethod
         {
