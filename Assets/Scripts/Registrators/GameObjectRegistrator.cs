@@ -13,7 +13,10 @@ namespace ComponentContainer.Registrator
         {
             // Register this component to the container
             var components = GetComponents<Component>();
-            foreach (var component in components) {
+            foreach (var component in components)
+            {
+                if (component is Transform or RegistratorBase) continue;
+                
                 RegisterToTargetContainer(component, _registerMethod);
             }
         }
