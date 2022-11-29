@@ -11,8 +11,7 @@ namespace ComponentContainer.Internal.InstanceProviders
     {
         private readonly List<IInstanceProvider> _instanceProviders = new();
         private IList _instanceList;
-        private Array _arrayCache;
-        
+
         public Type ElementType { get; }
         public Type ListType { get; }
 
@@ -40,7 +39,6 @@ namespace ComponentContainer.Internal.InstanceProviders
             else
             {
                 _instanceList = null;
-                _arrayCache = null;
             }
             
             _instanceProviders.Add(provider);
@@ -52,18 +50,14 @@ namespace ComponentContainer.Internal.InstanceProviders
             {
                 return _instanceList;
             }
-            if (_arrayCache is { })
-            {
-                return _arrayCache;
-            }
 
             int instanceCount = _instanceProviders.Count;
-            _arrayCache = Array.CreateInstance(ElementType, instanceCount);
+            var array = Array.CreateInstance(ElementType, instanceCount);
             for (int i = 0; i < instanceCount; i++)
             {
-                _arrayCache.SetValue(_instanceProviders[i].GetInstance(), i);
+                array.SetValue(_instanceProviders[i].GetInstance(), i);
             }
-            return _arrayCache;
+            return array;
         }
     }
 }
