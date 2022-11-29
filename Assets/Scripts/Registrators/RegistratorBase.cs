@@ -17,27 +17,32 @@ namespace ComponentContainer.Registrator
             var componentType = component.GetType();
             var targetTypes = new List<Type>();
 
-            if (method.HasFlag(RegisterMethod.AllInterfaces)) {
+            if (method.HasFlag(RegisterMethod.AllInterfaces))
+            {
                 targetTypes.AddRange(componentType.GetInterfaces());
             }
-            if (method.HasFlag(RegisterMethod.BaseType)) {
+            if (method.HasFlag(RegisterMethod.BaseType))
+            {
                 targetTypes.AddRange(GetBaseTypes(componentType));
             }
-            if (method.HasFlag(RegisterMethod.Self)) {
+            if (method.HasFlag(RegisterMethod.Self))
+            {
                 targetTypes.Add(componentType);
             }
 
-            foreach (var type in targetTypes) {
+            foreach (var type in targetTypes)
+            {
                 _targetContainer.RegisterInstance(type, component);
             }
         }
-        
+
         private static IEnumerable<Type> GetBaseTypes(Type self)
         {
-            for (var baseType = self.BaseType; null != baseType; baseType = baseType.BaseType) {
+            for (var baseType = self.BaseType; null != baseType; baseType = baseType.BaseType)
+            {
                 yield return baseType;
             }
         }
-        
+
     }
 }
