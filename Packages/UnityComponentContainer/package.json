@@ -1,0 +1,7 @@
+{
+    "name": "com.witalosk.unity_component_container",
+    "version": "0.1.0",
+    "displayName": "UnityComponentContainer",
+    "description": "A simple DiContainer for Unity.",
+    "unity": "2021.3"
+}

@@ -42,6 +42,13 @@ etc.
 ### Environment / 動作環境
 Unity 2021.3.1f1
 
+## Installation / 導入方法
+Window > Package Manager > Add package from git URL
+
+Enter the following url and click the add button.
+
+https://github.com/witalosk/UnityComponentContainer.git
+
 ## Usage / 使い方
 1. Create a `SceneContainer` in the scene.
 2. Attach `GameObjectRegistrator` or `ComponentsRegistrator` to the component you want to register in the Container.

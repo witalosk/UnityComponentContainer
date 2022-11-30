@@ -1,0 +1,16 @@
+{
+    "name": "UnityComponentContainer.Sample",
+    "rootNamespace": "",
+    "references": [
+        "GUID:d58595fdadb34c9469dca99e181dd711"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
