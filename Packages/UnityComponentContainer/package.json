@@ -3,5 +3,12 @@
     "version": "0.1.0",
     "displayName": "UnityComponentContainer",
     "description": "A simple DiContainer for Unity.",
-    "unity": "2021.3"
+    "unity": "2021.3",
+    "samples": [
+        {
+          "displayName": "BasicSample",
+          "description": "Basic usage sample",
+          "path": "Samples/BasicSample"
+        }
+    ]
 }
