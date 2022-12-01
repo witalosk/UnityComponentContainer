@@ -12,7 +12,7 @@ namespace ComponentContainer.Container
     {
         private readonly Injector _injector = new();
 
-        private readonly ConcurrentDictionary<Type, List<IInstanceProvider>> _containerData = new();
+        private readonly ConcurrentDictionary<Type, IInstanceProvider> _containerData = new();
 
         public object Resolve<T>(bool notNull = false)
         {
@@ -21,9 +21,9 @@ namespace ComponentContainer.Container
         
         public object Resolve(Type type, bool nullable = false)
         {
-            if (_containerData.ContainsKey(type) && _containerData[type].Count > 0)
+            if (_containerData.ContainsKey(type))
             {
-                return _containerData[type][0].GetInstance();
+                return _containerData[type].GetInstance();
             }
 
             if (!nullable)
@@ -60,12 +60,12 @@ namespace ComponentContainer.Container
             Type collectionType = typeof(IEnumerable<>).MakeGenericType(type);
             if (_containerData.ContainsKey(type))
             {
-                _containerData[type].Add(provider);
-                ((CollectionInstanceProvider)_containerData[collectionType][0]).AddProvider(provider);
+                _containerData[type] = provider;
+                ((CollectionInstanceProvider)_containerData[collectionType]).AddProvider(provider);
             }
             else {
-                _containerData.TryAdd(type, new List<IInstanceProvider>(){ provider });
-                _containerData.TryAdd(collectionType, new List<IInstanceProvider> { new CollectionInstanceProvider(type, provider) });
+                _containerData.TryAdd(type, provider);
+                _containerData.TryAdd(collectionType, new CollectionInstanceProvider(type, provider));
             }
         }
 
