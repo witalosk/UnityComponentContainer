@@ -7,7 +7,7 @@ using UnityEngine;
 namespace ComponentContainer.Registrator
 {
     [DefaultExecutionOrder(-9999)]
-    public class ComponentsRegistrator : RegistratorBase
+    public class ComponentsRegistrator : InstanceRegistratorBase
     {
         [SerializeField]
         private List<ComponentData> _componentData = new();
@@ -16,7 +16,7 @@ namespace ComponentContainer.Registrator
         {
             // Register this component to the container
             foreach (var data in _componentData.Where(d => d.TargetComponent != null)) {
-                RegisterToTargetContainer(data.TargetComponent, data.Method);
+                RegisterInstanceToTargetContainer(data.TargetComponent, data.Method);
             }
         }
 
