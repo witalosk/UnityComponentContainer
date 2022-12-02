@@ -1,14 +1,19 @@
 {
-    "name": "com.witalosk.unity_component_container",
-    "version": "0.1.1",
-    "displayName": "UnityComponentContainer",
-    "description": "A simple DiContainer for Unity.",
-    "unity": "2021.3",
-    "samples": [
-        {
-          "displayName": "BasicSample",
-          "description": "Basic usage sample",
-          "path": "Samples/BasicSample"
-        }
-    ]
+  "name": "com.witalosk.unity_component_container",
+  "version": "0.1.2",
+  "displayName": "UnityComponentContainer",
+  "description": "A simple DiContainer for Unity.",
+  "unity": "2021.3",
+  "samples": [
+    {
+      "displayName": "BasicSample",
+      "description": "Basic usage sample (Component only)",
+      "path": "Samples/BasicSample"
+    },
+    {
+      "displayName": "General Class Sample",
+      "description": "Register general classes to a container",
+      "path": "Samples/GeneralClassSample"
+    }
+  ]
 }

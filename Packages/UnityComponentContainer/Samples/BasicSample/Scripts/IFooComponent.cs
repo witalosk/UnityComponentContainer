@@ -1,4 +1,4 @@
-﻿namespace ComponentContainer.Sample
+﻿namespace ComponentContainer.Sample.BasicSample
 {
     public interface IFooComponent
     {
