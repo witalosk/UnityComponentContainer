@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-namespace ComponentContainer.Sample
+namespace ComponentContainer.Sample.BasicSample
 {
     public class FooComponent : MonoBehaviour, IFooComponent
     {

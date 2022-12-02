@@ -5,7 +5,7 @@ using ComponentContainer.Internal;
 using ComponentContainer.Container;
 using UnityEngine;
 
-namespace ComponentContainer.Sample
+namespace ComponentContainer.Sample.BasicSample
 {
     public class BarComponent : MonoBehaviour
     {
