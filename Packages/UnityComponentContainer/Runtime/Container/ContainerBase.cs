@@ -10,8 +10,6 @@ namespace ComponentContainer.Container
 {
     public abstract class ContainerBase : MonoBehaviour, IContainer
     {
-        private readonly Injector _injector = new();
-
         private readonly ConcurrentDictionary<Type, IInstanceProvider> _containerData = new();
 
         public object Resolve<T>(bool notNull = false)
@@ -34,20 +32,29 @@ namespace ComponentContainer.Container
             return GetDefault(type);
         }
 
-        public void RegisterInstance(Type type, object obj)
+        public void Register(Type concreteType, Type registerType)
         {
-            RegisterProvider(type, new ExistingInstanceProvider(obj));
+            RegisterProvider(registerType, new TemporaryInstanceProvider(concreteType, this));
         }
         
-        public void RegisterInstance<T>(T obj)
+        public void Register<TConcrete, TRegister>()
         {
-            RegisterInstance(typeof(T), obj);
+            Register(typeof(TConcrete), typeof(TRegister));
+        }
+        
+        public void RegisterInstance(Type registerType, object obj)
+        {
+            RegisterProvider(registerType, new ExistingInstanceProvider(obj));
+        }
+
+        public void RegisterInstance<TRegister>(TRegister obj)
+        {
+            RegisterInstance(typeof(TRegister), obj);
         }
         
         public void Inject(object instance)
         {
-            var targetMethods = TargetSearcher.Search(instance.GetType());
-            _injector.Inject(instance, this, targetMethods);
+            Injector.Inject(instance, this, TargetSearcher.Search(instance.GetType()));
         }
 
         private void RegisterProvider(Type type, IInstanceProvider provider)
