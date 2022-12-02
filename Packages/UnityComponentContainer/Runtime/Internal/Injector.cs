@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using ComponentContainer.Container;
 
 namespace ComponentContainer.Internal
 {
-    public class Injector
+    public static class Injector
     {
-        public void Inject(object instance, IContainer container, List<TargetMethodInfo> targets)
+        public static void Inject(object instance, IContainer container, List<TargetMethodInfo> targets)
         {
             if (targets is not { Count: > 0 }) return;
 

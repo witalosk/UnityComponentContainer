@@ -9,7 +9,7 @@ namespace ComponentContainer.Registrator
         [SerializeField]
         private RegisterMethod _registerMethod = RegisterMethod.AllInterfaces;
         
-        private void Awake()
+        protected override void RegisterToContainer()
         {
             // Register this component to the container
             var components = GetComponents<Component>();

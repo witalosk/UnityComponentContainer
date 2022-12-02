@@ -12,7 +12,7 @@ namespace ComponentContainer.Registrator
         [SerializeField]
         private List<ComponentData> _componentData = new();
 
-        private void Awake()
+        protected override void RegisterToContainer()
         {
             // Register this component to the container
             foreach (var data in _componentData.Where(d => d.TargetComponent != null)) {
